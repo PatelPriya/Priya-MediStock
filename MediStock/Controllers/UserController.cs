@@ -119,15 +119,21 @@ namespace MediStockWeb.Controllers
             if (ModelState.IsValid)
             {
                 obj.Email = model.Email;
-                obj.Password = model.Password;
+
+                obj.Password = new Password()
+                {
+                    PasswordString = model.PasswordStr
+                };
+
                 var userData = _userService.SignIn(obj);
                 obj = userData;
+
             }
 
             if (obj == null)
             {
                 TempData["ErrorMessage"] = "Sign In failed ! Password or Email is incorrect";
-                return RedirectToAction("SignIn", "Authentication", new { area = "" });
+                return RedirectToAction("Auth", "Authentication", new { area = "" });
             }
             else
             {
@@ -141,7 +147,7 @@ namespace MediStockWeb.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("SignIn", "Authentication", new { area = "" });
+                    return RedirectToAction("Index", "Home", new { area = "" });
                 }
             }
         }

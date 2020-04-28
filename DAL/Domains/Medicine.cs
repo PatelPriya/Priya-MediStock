@@ -19,6 +19,8 @@ namespace DAL.Domains
         public bool IsDeleted { get; set; }
         public Stock Stock { get; set; }
 
+        public string PictureStr { get; set; }
+
         public ICollection<CategoryMedicine> _categoryMedicine;
 
         public virtual ICollection<CategoryMedicine> CategoryMedicine

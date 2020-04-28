@@ -1,11 +1,17 @@
 ﻿using DAL.Domains;
 using System;
 using System.Collections.Generic;
+using System.Web;
 
 namespace MediStockWeb.Areas.Admin.Models
 {
-    public partial class MedicineModel 
+    public partial class MedicineModel
     {
+        //public MedicineModel()
+        //{
+        //    Pictures = new List<Picture>();
+        //}
+
         public int MedicineId { get; set; }
         public string Name { get; set; }
         public string SKU { get; set; }
@@ -19,7 +25,10 @@ namespace MediStockWeb.Areas.Admin.Models
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public Stock Stock { get; set; }
-        public List<Picture> Pictures { get; set; }
+        public string PictureStr { get; set; }
+        //public HttpPostedFileBase imageFile { get; set; }
+
+        //public List<Picture> Pictures { get; set; }
         public List<CategoryModel> AllCategories { get; set; }
     }
 }

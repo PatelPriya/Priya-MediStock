@@ -6,6 +6,10 @@ namespace MediStockWeb.Areas.Admin.Models
 {
     public class UserModel
     {
+        public UserModel()
+        {
+            Password = new Password();
+        }
         public int UserID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -15,8 +19,9 @@ namespace MediStockWeb.Areas.Admin.Models
         public string State { get; set; }
         public string Address { get; set; }
         public int Zipcode { get; set; }
-        [DataType(DataType.Password)]
+        public string Passwordstr { get; set; }
         public Password Password { get; set; }
+
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime CreatedOn { get; set; }

@@ -3,8 +3,12 @@ using DAL.Data;
 using DAL.Domains;
 using MediStockWeb.Areas.Admin.Controllers.Base;
 using MediStockWeb.Areas.Admin.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using X.PagedList;
 
 namespace MediStockWeb.Areas.Admin.Controllers
@@ -12,14 +16,17 @@ namespace MediStockWeb.Areas.Admin.Controllers
     public class MedicineController : BaseController
     {
         #region Fields
-
+        private readonly IHostingEnvironment _env;
         private readonly IMedicineService _medicineService;
         #endregion
 
         #region Ctor
 
-        public MedicineController(IMedicineService medicineService)
+        public MedicineController(IMedicineService medicineService,
+        IHostingEnvironment environment
+            )
         {
+            _env = environment;
             _medicineService = medicineService;
         }
 
@@ -38,6 +45,7 @@ namespace MediStockWeb.Areas.Admin.Controllers
                 model.MedicineId = item.Id;
                 model.Name = item.Name;
                 model.SKU = item.SKU;
+                model.PictureStr = item.PictureStr;
                 model.ProductGUID = item.ProductGUID;
                 model.Price = item.Price;
                 model.Manufacturer = item.Manufacturer;
@@ -63,8 +71,38 @@ namespace MediStockWeb.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(MedicineModel model)
+        public IActionResult Create(MedicineModel model /*,IFormFile model.PictureStr*/)
         {
+            //IFormFile model.Pi
+            //if (PictureStr != null && PictureStr.Length > 0)
+            //{
+            //    var imagePath = @"\Upload\Images\";
+            //    var uploadPath = _env.WebRootPath + imagePath;
+
+            //    //Create Directory
+            //    if (!Directory.Exists(uploadPath))
+            //    {
+            //        Directory.CreateDirectory(uploadPath);
+            //    }
+
+            //    //Create Uniq File name
+            //    var uniqFileName = Guid.NewGuid().ToString();
+            //    var filename = Path.GetFileName(uniqFileName + "." + PictureStr.FileName.Split(".")[1].ToLower());
+            //    string fullPath = uploadPath + filename;
+
+            //    imagePath = imagePath + @"\";
+            //    var filepath = @".." + Path.Combine(imagePath, filename);
+
+            //    using (var fileStream = new FileStream(fullPath, FileMode.Create))
+            //    {
+            //       // await PictureStr.CopyToAsync(fileStream);
+            //    }
+            //}
+
+            //string fileName = Path.GetFileNameWithoutExtension(model.);
+            //string extension = Path.GetExtension(model.PictureStr);
+            //fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+            //model.PictureStr = 
             Medicine obj = new Medicine();
            
                 // Model Prepration
@@ -81,9 +119,13 @@ namespace MediStockWeb.Areas.Admin.Controllers
                     IsActive = model.IsActive,
                     IsDeleted = false,
                     Stock = model.Stock,
-                    Pictures = model.Pictures,
+                    PictureStr = model.PictureStr,
                     //CategoryMedicine = model.AllCategories
                 };
+            //objMedicineModel.Pictures = new Picture()
+            //{
+            //   // AbsolutePath = model.PictureStr
+            //};
             var medicines = _medicineService.InsertMedicine(objMedicineModel);
             obj = medicines;
             if (obj == null)

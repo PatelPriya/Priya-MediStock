@@ -9,15 +9,17 @@
         <div class="row">
             <div class="col-sm-5 col-sm-offset-1 mb-sm-40">
                 <h4 class="font-alt" style="text-shadow: 1px 1px 8px white; color:red;">@TempData["Message"]</h4>
+                <h4 class="font-alt" style="text-shadow: 1px 1px 8px white; color:red;">@TempData["ErrorMessage"]</h4>
+
                 <h4 class="font-alt" style="text-shadow: 1px 1px 8px white; color: black;">Login</h4>
 
-                @using (Html.BeginForm("SignIn", "Authentication ", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form" }))
+                @using (Html.BeginForm("SignIn", "User", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form" }))
                 {
                     <div class="form-group">
-                        <input class="form-control" id="email" type="text" name="email" placeholder="Email" style="box-shadow: 8px 8px 0px black;" />
+                        <input class="form-control" id="Email" type="text" name="Email" placeholder="Email" style="box-shadow: 8px 8px 0px black;" />
                     </div>
                     <div class="form-group">
-                        <input class="form-control" id="password" type="password" name="password" placeholder="Password" style="box-shadow: 8px 8px 0px black;" />
+                        <input class="form-control" id="PasswordStr" type="password" name="PasswordStr" placeholder="Password" style="box-shadow: 8px 8px 0px black;" />
                     </div>
                     <div class="form-group">
                         <button class="btn btn-round btn-b" style="box-shadow: 5px 5px 10px black;">Login</button>

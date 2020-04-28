@@ -133,8 +133,19 @@ namespace BAL.Services
         // Sign In to authenticate the user
         public Customer SignIn(Customer userEntity)
         {
-            var userData = context.Customers.Where(a => a.Email == userEntity.Email && a.Password == userEntity.Password).FirstOrDefault();
-            return userData;
+            var userData = context.Customers.Where(a => a.Email == userEntity.Email).FirstOrDefault();
+
+            var passwordData = context.Passwords.Where(a => a.PasswordString == userEntity.Password.PasswordString).FirstOrDefault();
+
+            if ( userData != null && passwordData != null)
+            {
+                if (userData.Id == passwordData.CustomerId)
+                {
+                    return userData;
+                }
+            }
+            
+            return null;
         }
 
         public Customer EmailExists(Customer userEntity)

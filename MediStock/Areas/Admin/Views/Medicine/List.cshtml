@@ -49,10 +49,9 @@
                             <tr>
                                 <th scope="col">Name</th>
                                 <th scope="col">SKU</th>
+                                <th scope="col">Picture</th>
                                 <th scope="col">Price</th>
                                 <th scope="col">Manufacturer</th>
-                                <th scope="col">Is Active</th>
-                                <th scope="col">is Deleted</th>
                                 <th scope="col">Edit</th>
                                 <th scope="col">Delete</th>
                             </tr>
@@ -74,24 +73,9 @@
                         <tr>
                             <td>@medicine.Name</td>
                             <td>@medicine.SKU</td>
+                            <td><img src="@Url.Content(@medicine.PictureStr)" width="88" height="106" alt="Image" class="shadow-lg"></td>
                             <td>@medicine.Price</td>
                             <td>@medicine.Manufacturer</td>
-                            <td>
-                                @if (@medicine.IsActive == true)
-                                {<h5 style="color:green;">yes</h5> }
-                                else
-                                {
-                                    <h5 style="color:red;">No</h5>
-                                }
-                            </td>
-                            <td>
-                                @if (@medicine.IsDeleted == true)
-                                {<h5 style="color:green;">yes</h5> }
-                                else
-                                {
-                                    <h5 style="color:red;">No</h5>
-                                }
-                            </td>
 
                             <td><a href="@Url.Action("Edit", "Medicine", new { area = "Admin", id = medicine.MedicineId })" class="btn btn-warning shadow btn-sm active" role="button" aria-pressed="true">Edit</a></td>
                             <td><a href="@Url.Action("Delete", "Medicine", new { area = "Admin", id = medicine.MedicineId })" class="btn btn-danger shadow btn-sm active" role="button" aria-pressed="true" onclick="return confirmDelete()">Delete</a></td>

@@ -75,7 +75,6 @@ namespace MediStockWeb.Areas.Admin.Controllers
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Email = model.Email,
-                    Password = model.Password,
                     City = model.City,
                     State = model.State,
                     Address = model.Address,
@@ -86,7 +85,13 @@ namespace MediStockWeb.Areas.Admin.Controllers
                     CreatedOn = DateTime.Now,
                     UpdatedOn = DateTime.Now
                 };
-                var userData = _adminService.AddUser(objUserModel);
+
+            objUserModel.Password = new Password()
+            {
+                PasswordString = model.Passwordstr
+            };
+
+            var userData = _adminService.AddUser(objUserModel);
                 obj = userData;
 
             if (obj == null)
