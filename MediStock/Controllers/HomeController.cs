@@ -1,10 +1,8 @@
 ﻿using BAL.Services;
 using DAL.Data;
 using DAL.Domains;
-using MediStockWeb.Areas.Admin.Models;
 using MediStockWeb.Controllers.Base;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace MediStockWeb.Controllers
 {
@@ -24,6 +22,8 @@ namespace MediStockWeb.Controllers
             _context = context;
         }
         #endregion
+
+        // Sample add comment to show the github pull
         [HttpGet]
         public IActionResult Index()
         {
