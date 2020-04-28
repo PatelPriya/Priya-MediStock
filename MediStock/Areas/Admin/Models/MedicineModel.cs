@@ -30,5 +30,6 @@ namespace MediStockWeb.Areas.Admin.Models
 
         //public List<Picture> Pictures { get; set; }
         public List<CategoryModel> AllCategories { get; set; }
+        public string categoryName { get; set; }
     }
 }

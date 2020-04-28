@@ -1,18 +1,18 @@
 ﻿@model MediStockWeb.Areas.Admin.Models.MedicineModel
     <!-- DateTimePicker -->
-   <script type="text/javascript">
-		$( function() {
-			
-            $('#ManufacturingDate').datepicker({
-			format: 'MM/DD/YYYY',
-		});
-		
+<script type="text/javascript">
+    $(function () {
+
+        $('#ManufacturingDate').datepicker({
+            format: 'MM/DD/YYYY',
+        });
+
         $('#ExpiryDate').datepicker({
-			format: 'MM/DD/YYYY',
-		});
-		
-		});
-	</script>
+            format: 'MM/DD/YYYY',
+        });
+
+    });
+</script>
 <div class="page-inner">
     <div class="page-header">
         <h4 class="page-title">Add New Medicine</h4>
@@ -49,6 +49,23 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="card-body">
+                        <div class="form-group form-show-validation row">
+                            <label for="Category Name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Category Name <span class="required-label">*</span></label>
+                            <div class="col-lg-4 col-md-9 col-sm-8">
+                                @Html.DropDownListFor(model => model.categoryName, ViewBag.categories as SelectList, "-Select Category-")
+
+                                @*<select id="Select1" asp-items="@(new SelectList(Model.categoryName,"Id","categoryName"))">
+
+                                        <option value="" selected disabled>-Select Category-</option>
+
+                                    </select>*@
+
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-group form-show-validation row">
                         <label for="LastName" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">SKU <span class="required-label">*</span></label>
                         <div class="col-lg-4 col-md-9 col-sm-8">
@@ -86,38 +103,38 @@
                         <label for="birth" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Manufacturing Date <span class="required-label">*</span></label>
                         <div class="col-lg-4 col-md-9 col-sm-8">
                             <div class="input-group">
-													<input type="text" class="form-control" id="ManufacturingDate" name="ManufacturingDate">
-													<div class="input-group-append">
-														<span class="input-group-text">
-															<i class="fa fa-calendar-check"></i>
-														</span>
-													</div>
-												</div>
+                                <input type="text" class="form-control" id="ManufacturingDate" name="ManufacturingDate">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-calendar-check"></i>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group form-show-validation row">
                         <label for="birth" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Expiry Date <span class="required-label">*</span></label>
                         <div class="col-lg-4 col-md-9 col-sm-8">
                             <div class="input-group">
-													<input type="text" class="form-control" id="ExpiryDate" name="ExpiryDate">
-													<div class="input-group-append">
-														<span class="input-group-text">
-															<i class="fa fa-calendar-check"></i>
-														</span>
-													</div>
-												</div>
+                                <input type="text" class="form-control" id="ExpiryDate" name="ExpiryDate">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-calendar-check"></i>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group form-show-validation row">
-											<label class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Upload Image <span class="required-label">*</span></label>
-											<div class="col-lg-4 col-md-9 col-sm-8">
-												<div class="input-file input-file-image">
-													<img class="img-upload-preview img-circle" width="100" height="100" src="~/Content/Common/100x100.png" alt="preview">
-													<input type="file" class="form-control form-control-file" id="uploadImg" name="PictureStr" accept="image/*" value="@Model.PictureStr" required="">
-													<label for="uploadImg" class="btn btn-primary btn-round btn-lg"><i class="fa fa-file-image"></i> Upload a Image</label>
-												</div>
-											</div>
-										</div>
+                        <label class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Upload Image <span class="required-label">*</span></label>
+                        <div class="col-lg-4 col-md-9 col-sm-8">
+                            <div class="input-file input-file-image">
+                                <img class="img-upload-preview img-circle" width="100" height="100" src="~/Content/Common/100x100.png" alt="preview">
+                                <input type="file" class="form-control form-control-file" id="uploadImg" name="PictureStr" accept="image/*" value="@Model.PictureStr" required="">
+                                <label for="uploadImg" class="btn btn-primary btn-round btn-lg"><i class="fa fa-file-image"></i> Upload a Image</label>
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group form-show-validation row">
                         <label for="IsActive" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">IsActive <span class="required-label">*</span></label>
                         <div class="col-lg-4 col-md-9 col-sm-8">
