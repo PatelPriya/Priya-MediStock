@@ -25,7 +25,7 @@ namespace BAL.Services
 
         #region Methods
 
-        public Medicine InsertMedicine(Medicine medicineEntity,string categoryName)
+        public Medicine InsertMedicine(Medicine medicineEntity, string categoryName)
         {
             context.Medicines.Add(medicineEntity);
             context.SaveChanges();
@@ -70,6 +70,7 @@ namespace BAL.Services
                     Id = item.Id,
                     Name = item.Name,
                     SKU = item.SKU,
+                    PictureStr = item.PictureStr,
                     ProductGUID = item.ProductGUID,
                     Price = item.Price,
                     Manufacturer = item.Manufacturer,
