@@ -6,6 +6,7 @@ using MediStockWeb.Areas.Admin.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,18 +17,25 @@ namespace MediStockWeb.Areas.Admin.Controllers
     public class MedicineController : BaseController
     {
         #region Fields
-        private readonly IHostingEnvironment _env;
+        private readonly IWebHostEnvironment _env;
         private readonly IMedicineService _medicineService;
+        private readonly ICategoryService _categoryService;
+        private readonly MediStockContext _context;
+       
         #endregion
 
         #region Ctor
 
         public MedicineController(IMedicineService medicineService,
-        IHostingEnvironment environment
+        IWebHostEnvironment environment, ICategoryService categoryService,
+                                     MediStockContext context
             )
         {
             _env = environment;
             _medicineService = medicineService;
+            _medicineService = medicineService;
+            _categoryService = categoryService;
+            _context = context;
         }
 
         #endregion
@@ -67,6 +75,9 @@ namespace MediStockWeb.Areas.Admin.Controllers
         public IActionResult Create()
         {
             var model = new MedicineModel();
+            var categories = _categoryService.GetAllCategories()/*.ToList()*/;
+            SelectList list = new SelectList(categories, "Id", "Name");
+            ViewBag.categories = list;
             return View(model);
         }
 

@@ -1,5 +1,6 @@
 ﻿using DAL.Data;
 using DAL.Domains;
+using DAL.Mappings;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -24,15 +25,21 @@ namespace BAL.Services
 
         #region Methods
 
-        public Medicine InsertMedicine(Medicine medicineEntity)
+        public Medicine InsertMedicine(Medicine medicineEntity,string categoryName)
         {
             context.Medicines.Add(medicineEntity);
             context.SaveChanges();
 
-            Medicine result = new Medicine();
-            //context.Pictures.Add(medicineEntity.Pictures.ToList());
-            result = context.Medicines.Where(s => s.Name == medicineEntity.Name).FirstOrDefault();
-            return result;
+            var lastAddedMedicine = context.Medicines.ToList().LastOrDefault();
+            CategoryMedicine categoryMedicine = new CategoryMedicine
+            {
+                MedicineId = lastAddedMedicine.Id,
+                CategoryId = context.Categories.Where(x => x.Name == categoryName).FirstOrDefault().Id
+            };
+            context.CategoryMedicine.Add(categoryMedicine);
+            context.SaveChanges();
+
+            return lastAddedMedicine;
 
         }
 
