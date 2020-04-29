@@ -137,7 +137,15 @@ namespace MediStockWeb.Areas.Admin.Controllers
             //{
             //   // AbsolutePath = model.PictureStr
             //};
-            var medicines = _medicineService.InsertMedicine(objMedicineModel);
+
+            string categoryName = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(model.categoryName))
+            {
+                categoryName = model.categoryName.ToString();
+            }
+
+            var medicines = _medicineService.InsertMedicine(objMedicineModel, categoryName);
             obj = medicines;
             if (obj == null)
             {
