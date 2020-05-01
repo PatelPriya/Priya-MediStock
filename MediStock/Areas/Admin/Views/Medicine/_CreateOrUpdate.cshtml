@@ -40,7 +40,7 @@
         <div class="col-md-12">
             <div class="card">
 
-                <form id="exampleValidation" novalidate="novalidate">
+                <form id="exampleValidation" novalidate="novalidate" enctype="multipart/form-data">
                     <div class="card-body">
                         <div class="form-group form-show-validation row">
                             <label for="Name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Name <span class="required-label">*</span></label>
@@ -54,8 +54,12 @@
                         <label for="Category Name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Category Name <span class="required-label">*</span></label>
                         <div class="col-lg-4 col-md-9 col-sm-8">
                             <div class="select2-input">
-                                @Html.DropDownListFor(model => model.categoryName, ViewBag.categories as SelectList,new { @class ="form-control select2-hidden-accessible", 
-                               @required = "", @tabindex = "-1"})
+                                @Html.DropDownListFor(model => model.categoryName, ViewBag.categories as SelectList, new
+                                {
+                                    @class = "form-control select2-hidden-accessible",
+                               @required = "",
+                                    @tabindex = "-1"
+                                })
                                 <span class="select2 select2-container select2-container--bootstrap" dir="ltr" data-select2-id="1" style="width: 361.725px"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-state-container"><span class="select2-selection__rendered" id="select2-state-container" role="textbox" aria-readonly="true" title="&nbsp;">&nbsp;</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
                             </div>
                         </div>
@@ -125,11 +129,13 @@
                         <div class="col-lg-4 col-md-9 col-sm-8">
                             <div class="input-file input-file-image">
                                 <img class="img-upload-preview img-circle" width="100" height="100" src="~/Content/Common/100x100.png" alt="preview">
-                                <input type="file" class="form-control form-control-file" id="uploadImg" name="PictureStr" accept="image/*" value="@Model.PictureStr" required="">
+                                <input type="file" class="form-control form-control-file" id="uploadImg" name="Picture" accept="image/*" value="@Model.Picture" required="">
                                 <label for="uploadImg" class="btn btn-primary btn-round btn-lg"><i class="fa fa-file-image"></i> Upload a Image</label>
                             </div>
                         </div>
                     </div>
+
+
                     <div class="form-group form-show-validation row">
                         <label for="IsActive" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">IsActive <span class="required-label">*</span></label>
                         <div class="col-lg-4 col-md-9 col-sm-8">

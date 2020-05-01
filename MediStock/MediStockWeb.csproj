@@ -23,6 +23,7 @@
     <Folder Include="wwwroot\Content\Common\air-datepicker\" />
     <Folder Include="wwwroot\Content\Common\vue-countdown\" />
     <Folder Include="wwwroot\Content\Common\vue-qrcode\" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -328,6 +329,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.0" />
     <PackageReference Include="jQuery.UI.Combined" Version="1.12.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.3" />
