@@ -1,111 +1,122 @@
-﻿@model IPagedList<MediStockWeb.Areas.Admin.Models.MedicineModel>
+﻿@model IEnumerable<DAL.Domains.Medicine>
 
-@using X.PagedList.Mvc.Core;
-@using X.PagedList;
-@{
-    ViewData["Title"] = "List";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
-}
+    @using X.PagedList.Mvc.Core;
+    @using X.PagedList;
+    @{
+        ViewData["Title"] = "List";
+        Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 
-<div class="page-inner">
-    <div class="page-header">
-        <h4 class="page-title">Medicines</h4>
-        <button class="btn btn-primary"
-                type="button"
-                style="position: absolute;
+    }
+
+    <div class="page-inner">
+        <div class="page-header">
+            <h4 class="page-title">Medicines</h4>
+            <button class="btn btn-primary"
+                    type="button"
+                    style="position: absolute;
                        right: 34px;
                        box-shadow: 4px 4px 10px 0 rgba(0,0,0,.1),4px 4px 15px -5px rgba(21,114,232,.4)!important;"
-                onclick="window.location.href='@Url.Action("Create", "Medicine")'">
-            Add New
-        </button>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            @using (Html.BeginForm("SearchUser", "Medicine", FormMethod.Post, new { @id = "searchFormID", @class = "form-group" }))
-                            {
-                                <div class="row">
-                                    <div class="col-md-4 float-right no-margin no-padding">
-                                        @Html.TextBox("searchString", null, new { @id = "searchID", @class = "form-control shadow" })
+                    onclick="window.location.href='@Url.Action("Create", "Medicine")'">
+                Add New
+            </button>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                @using (Html.BeginForm("Search", "Medicine", FormMethod.Post, new { @id = "searchFormID", @class = "form-group" }))
+                                {
+                                    <div class="row">
+                                        <div class="col-md-4 float-right no-margin no-padding">
+                                            @Html.TextBox("searchString", null, new { @id = "searchID", @class = "form-control shadow" })
+                                        </div>
+                                        <div class="col-md-4 float-left no-margin no-padding">
+                                            <input type="submit" value="Search" onclick="validateSearch()" style="margin-left:5px;" class="btn btn-success shadow">
+                                        </div>
+                                        <div class="col-4">
+                                            <a href="@Url.Action("List","Medicine",new { area="Admin"})" class="btn btn-primary shadow float-right" style="margin-top:5px;">Show All</a>
+                                        </div>
                                     </div>
-                                    <div class="col-md-4 float-left no-margin no-padding">
-                                        <input type="submit" value="Search" onclick="validateSearch()" style="margin-left:5px;" class="btn btn-success shadow">
-                                    </div>
-                                    <div class="col-4">
-                                        <a href="@Url.Action("List","Medicine",new { area="Admin"})" class="btn btn-primary shadow float-right" style="margin-top:5px;">Show All</a>
-                                    </div>
-                                </div>
-                            }
+                                }
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-body">
+                    <div class="card-body">
 
-                    <table class="table mt-3">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">SKU</th>
-                                <th scope="col">Picture</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Manufacturer</th>
-                                <th scope="col">Edit</th>
-                                <th scope="col">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (Model.Count() == 0)
-                            {
+                        <table class="table mt-3">
+                            <thead>
                                 <tr>
-                                    <td style="color:red;">
-                                        No Match
-                                    </td>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">SKU</th>
+                                    <th scope="col">Picture</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Manufacturer</th>
+                                    <th scope="col">Edit</th>
+                                    <th scope="col">Delete</th>
                                 </tr>
-                            }
-
-                            else
-                            {
-                                foreach (var medicine in Model)
+                            </thead>
+                            <tbody>
+                                @if (Model.Count() == 0)
                                 {
-                        <tr>
-                            <td>@medicine.Name</td>
-                            <td>@medicine.SKU</td>
-                            <td><img src="@Url.Content(@medicine.PictureStr)" width="88" height="106" alt="Image" class="shadow-lg"></td>
-                            <td>@medicine.Price</td>
-                            <td>@medicine.Manufacturer</td>
-
-                            <td><a href="@Url.Action("Edit", "Medicine", new { area = "Admin", id = medicine.MedicineId })" class="btn btn-warning shadow btn-sm active" role="button" aria-pressed="true">Edit</a></td>
-                            <td><a href="@Url.Action("Delete", "Medicine", new { area = "Admin", id = medicine.MedicineId })" class="btn btn-danger shadow btn-sm active" role="button" aria-pressed="true" onclick="return confirmDelete()">Delete</a></td>
-
-                        </tr>
+                                    <tr>
+                                        <td style="color:red;">
+                                            No Match
+                                        </td>
+                                    </tr>
                                 }
-                            }
-                        </tbody>
-                    </table>
+
+                                else
+                                {
+                                    foreach (var medicine in Model)
+                                    {
+                                        <tr>
+                                            <td>@medicine.Name</td>
+                                            <td>@medicine.SKU</td>
+                                            <td><img src="~/images/@medicine.PictureStr" width="88" height="106" alt="Image" asp-append-version="true" class="img-thumbnail"></td>
+                                            <td>@medicine.Price</td>
+                                            <td>@medicine.Manufacturer</td>
+
+                                            <td><a href="@Url.Action("Edit", "Medicine", new { area = "Admin", id = medicine.Id })" class="btn btn-warning shadow btn-sm active" role="button" aria-pressed="true">Edit</a></td>
+                                            <td><a href="@Url.Action("Delete", "Medicine", new { area = "Admin", id = medicine.Id })" class="btn btn-danger shadow btn-sm active" role="button" aria-pressed="true" onclick="return confirmDelete()">Delete</a></td>
+
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+    @section scripts {
+        <script type="text/javascript">
+            // Add the following code if you want the name of the file appear on select
+            $(document).ready(function () {
+                $(".form-control form-control-file").on("change", function () {
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).next(".btn btn-primary btn-round btn-lg").html(fileName);
+                });
+            });
+        </script>
+    }
 
 
-<script>
+    <script>
 
-    function validateSearch() {
-
-        var searchString = document.forms["searchFormID"]["searchID"].value;
-        if (searchString == "") {
-            alert("Please type something in search box");
-            return false;
+        function validateSearch() {
+            var searchString = document.forms["searchFormID"]["searchID"].value;
+            if (searchString == "") {
+                alert("Please type something in search box");
+                return false;
+            }
         }
 
-    }
-
-    function confirmDelete() {
-        return confirm("Are you sure you want to Delete the selected item ?");
-    }
-</script>
+        function confirmDelete() {
+            return confirm("Are you sure you want to Delete the selected item ?");
+        }
+    </script>
 
