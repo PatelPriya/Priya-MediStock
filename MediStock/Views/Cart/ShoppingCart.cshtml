@@ -98,7 +98,16 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <button class="btn btn-lg btn-block btn-round btn-d" type="submit">Proceed to Checkout</button>
+                        @*<button class="btn btn-lg btn-block btn-round btn-d" type="submit">Proceed to Checkout</button>*@
+                        <button class="btn btn-primary"
+                                type="button"
+                                style="position: absolute;
+                       right: 34px;
+                       box-shadow: 4px 4px 10px 0 rgba(0,0,0,.1),4px 4px 15px -5px rgba(21,114,232,.4)!important;"
+                                onclick="window.location.href='@Url.Action("Index", "Payment")'">
+                            Proceed to Checkout
+                        </button>
+
                     </div>
                 </div>
             </div>

@@ -1,0 +1,137 @@
+﻿@model MediStockWeb.Areas.Admin.Models.PaytmResponseModel
+@{
+    ViewData["Title"] = "paytmResponse";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>paytmResponse</h2>
+<section class="module">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <h1 class="module-title font-alt">PAYMENT RESPONSE</h1>
+            </div>
+        </div>
+        <div class="content-header clearfix">
+            <div class="pull-right">
+                <button type="submit" name="save" class="btn btn-success">
+                    <i class="fa fa-floppy-o"></i>
+                    Save
+                </button>
+
+                <button type="submit" name="save-continue" class="btn btn-success">
+                    <i class="fa fa-floppy-o"></i>
+                    Save Continue
+                </button>
+            </div>
+        </div>
+
+
+        <form id="exampleValidation" novalidate="novalidate" enctype="multipart/form-data" method="post" action="Payment/paytmResponse">
+
+            <div class="card-body">
+                <div class="form-group form-show-validation row">
+                    <label for="Name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">MId <span class="required-label">*</span></label>
+                    <div class="col-lg-4 col-md-9 col-sm-8">
+                        <input type="text" class="form-control" id="MId" name="MId" placeholder="Enter Amount" value="@Model.MId" required="">
+                    </div>
+                </div>
+
+                <div class="form-group form-show-validation row">
+                    <label for="Name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">OrderId <span class="required-label">*</span></label>
+                    <div class="col-lg-4 col-md-9 col-sm-8">
+                        <input type="text" class="form-control" id="OrderId" name="OrderId" placeholder="Enter MobileNumber" value="@Model.OrderId" required="">
+                    </div>
+                </div>
+
+                <div class="form-group form-show-validation row">
+                    <label for="Name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">TxnAmount <span class="required-label">*</span></label>
+                    <div class="col-lg-4 col-md-9 col-sm-8">
+                        <input type="text" class="form-control" id="TxnAmount" name="TxnAmount" placeholder="Enter Email" value="@Model.TxnAmount" required="">
+                    </div>
+                </div>
+
+                <div class="form-group form-show-validation row">
+                    <label for="Name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Currency <span class="required-label">*</span></label>
+                    <div class="col-lg-4 col-md-9 col-sm-8">
+                        <input type="text" class="form-control" id="Currency" name="Currency" placeholder="Enter Email" value="@Model.Currency" required="">
+                    </div>
+                </div>
+
+                <div class="form-group form-show-validation row">
+                    <label for="Name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">TxnId <span class="required-label">*</span></label>
+                    <div class="col-lg-4 col-md-9 col-sm-8">
+                        <input type="text" class="form-control" id="TxnId" name="TxnId" placeholder="Enter Email" value="@Model.TxnId" required="">
+                    </div>
+                </div>
+
+                <div class="form-group form-show-validation row">
+                    <label for="Name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Status <span class="required-label">*</span></label>
+                    <div class="col-lg-4 col-md-9 col-sm-8">
+                        <input type="text" class="form-control" id="STATUS" name="Status" placeholder="Enter Email" value="@Model.Status" required="">
+                    </div>
+                </div>
+
+                <div class="form-group form-show-validation row">
+                    <label for="Name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">RespCode <span class="required-label">*</span></label>
+                    <div class="col-lg-4 col-md-9 col-sm-8">
+                        <input type="text" class="form-control" id="RespCode" name="RespCode" placeholder="Enter Email" value="@Model.RespCode" required="">
+                    </div>
+                </div>
+
+                <div class="form-group form-show-validation row">
+                    <label for="Name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">RespMsg <span class="required-label">*</span></label>
+                    <div class="col-lg-4 col-md-9 col-sm-8">
+                        <input type="text" class="form-control" id="RespMsg" name="RespMsg" placeholder="Enter Email" value="@Model.RespMsg" required="">
+                    </div>
+                </div>
+
+                <div class="form-group form-show-validation row">
+                    <label for="Name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">TxnDate <span class="required-label">*</span></label>
+                    <div class="col-lg-4 col-md-9 col-sm-8">
+                        <input type="text" class="form-control" id="TxnDate" name="TxnDate" placeholder="Enter Email" value="@Model.TxnDate" required="">
+                    </div>
+                </div>
+
+                <div class="form-group form-show-validation row">
+                    <label for="Name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">GatewayName <span class="required-label">*</span></label>
+                    <div class="col-lg-4 col-md-9 col-sm-8">
+                        <input type="text" class="form-control" id="GatewayName" name="GatewayName" placeholder="Enter Email" value="@Model.GatewayName" required="">
+                    </div>
+                </div>
+
+                <div class="form-group form-show-validation row">
+                    <label for="Name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">BankName <span class="required-label">*</span></label>
+                    <div class="col-lg-4 col-md-9 col-sm-8">
+                        <input type="text" class="form-control" id="BankName" name="BankName" placeholder="Enter Email" value="@Model.BankName" required="">
+                    </div>
+                </div>
+
+                <div class="form-group form-show-validation row">
+                    <label for="Name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">PaymentMode <span class="required-label">*</span></label>
+                    <div class="col-lg-4 col-md-9 col-sm-8">
+                        <input type="text" class="form-control" id="PaymentMode" name="PaymentMode" placeholder="Enter Email" value="@Model.PaymentMode" required="">
+                    </div>
+                </div>
+
+                <div class="form-group form-show-validation row">
+                    <label for="Name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Checksumhash <span class="required-label">*</span></label>
+                    <div class="col-lg-4 col-md-9 col-sm-8">
+                        <input type="text" class="form-control" id="Checksumhash" name="Checksumhash" placeholder="Enter Email" value="@Model.Checksumhash" required="">
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+
+        @*</div>
+            </div>
+            </div>*@
+    </div>
+</section>
+
+
+
+
+

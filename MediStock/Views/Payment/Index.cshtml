@@ -1,0 +1,79 @@
+﻿@model MediStockWeb.Models.Payment.PaymentRequestDataModel
+@{
+    ViewData["Title"] = "Create Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@*<div class="page-inner">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">*@
+<section class="module">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <h1 class="module-title font-alt">Create Payment</h1>
+            </div>
+        </div>
+
+        @*<button type="submit" name="save-continue" class="btn btn-success">
+                    <i class="fa fa-floppy-o"></i>
+                    Save Continue
+                </button>
+            </div>*@
+
+
+
+        <form id="exampleValidation" novalidate="novalidate" enctype="multipart/form-data" method="post" action="Payment/CreatePayment">
+            @*@using (Html.BeginForm("CreatePayment", "Payment", FormMethod.Post))*@
+            @*{*@
+            <div class="card-body">
+                <div class="form-group form-show-validation row">
+                    <label for="Name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Amount <span class="required-label">*</span></label>
+                    <div class="col-lg-4 col-md-9 col-sm-8">
+                        <input type="text" class="form-control" id="Amount" name="Amount" placeholder="Enter Amount" value="@Model.Amount" required="">
+                    </div>
+                </div>
+
+                <div class="form-group form-show-validation row">
+                    <label for="Name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">MobileNumber <span class="required-label">*</span></label>
+                    <div class="col-lg-4 col-md-9 col-sm-8">
+                        <input type="text" class="form-control" id="MobileNumber" name="MobileNumber" placeholder="Enter MobileNumber" value="@Model.MobileNumber" required="">
+                    </div>
+                </div>
+
+                <div class="form-group form-show-validation row">
+                    <label for="Name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Email <span class="required-label">*</span></label>
+                    <div class="col-lg-4 col-md-9 col-sm-8">
+                        <input type="text" class="form-control" id="Email" name="Email" placeholder="Enter Email" value="@Model.Email" required="">
+                    </div>
+                </div>
+                <div class="content-header clearfix">
+
+                    <div class="pull-right">
+                        <button type="submit" name="save" class="btn btn-success">
+                            <i class="fa fa-floppy-o"></i>
+                            Save
+                        </button>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            @*}*@
+
+        </form>
+
+        @*</div>
+            </div>
+            </div>*@
+    </div>
+</section>
+
+
+
+
+
