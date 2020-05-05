@@ -1,5 +1,7 @@
 ﻿using DAL.Data;
 using DAL.Domains;
+using DAL.Mappings;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -29,26 +31,26 @@ namespace BAL.Services
             context.Medicines.Add(medicineEntity);
             context.SaveChanges();
 
-            Medicine result = new Medicine();
-            //context.Pictures.Add(medicineEntity.Pictures.ToList());
-            result = context.Medicines.Where(s => s.Name == medicineEntity.Name).FirstOrDefault();
-            return result;
+            // Get the last added medicine to store the medicine and category mapping data
+            //var lastAddedMedicine = context.Medicines.ToList().LastOrDefault();
+            //CategoryMedicine categoryMedicine = new CategoryMedicine
+            //{
+            //    MedicineId = lastAddedMedicine.Id,
+            //    CategoryId = context.Categories.Where(x => x.Name == categoryName).FirstOrDefault().Id
+            //};
+            //context.CategoryMedicine.Add(categoryMedicine);
+            //context.SaveChanges();
+
+            return medicineEntity;
 
         }
 
-        public Medicine DeleteMedicine(int medicineID)
+        public Medicine DeleteMedicine(Medicine medicineEntity)
         {
-            var medicineData = context.Medicines.FirstOrDefault(a => a.Id == medicineID);
-            medicineData.IsDeleted = true;
-            medicineData.IsActive = false;
+            context.Entry(medicineEntity).State = EntityState.Deleted;
             context.SaveChanges();
 
-            // Conifirmation of data is deleted or not
-            var checkDeletedOrNot = context.Medicines.FirstOrDefault(s => s.Id == medicineID);
-            if (checkDeletedOrNot.IsDeleted != true)
-                return null;
-            else
-                return checkDeletedOrNot;
+            return medicineEntity;
         }
 
         public IEnumerable<Medicine> GetAllMedicines()
@@ -63,6 +65,7 @@ namespace BAL.Services
                     Id = item.Id,
                     Name = item.Name,
                     SKU = item.SKU,
+                    PictureStr = item.PictureStr,
                     ProductGUID = item.ProductGUID,
                     Price = item.Price,
                     Manufacturer = item.Manufacturer,
@@ -77,31 +80,11 @@ namespace BAL.Services
 
         public Medicine UpdateMedicine(Medicine medicineEntity)
         {
-            var medicineData = context.Medicines.SingleOrDefault(c => c.Id == medicineEntity.Id);
-            medicineData.Id = medicineEntity.Id;
-            medicineData.Name = medicineEntity.Name;
-            medicineData.SKU = medicineEntity.SKU;
-            medicineData.ProductGUID = medicineEntity.ProductGUID;
-            medicineData.Price = medicineEntity.Price;
-            medicineData.Manufacturer = medicineEntity.Manufacturer;
-            medicineData.ManufacturingDate = medicineEntity.ManufacturingDate;
-            medicineData.Description = medicineEntity.Description;
-            //if (medicineEntity.Image != null)
-            //{
-            //    medicineData.Image = medicineEntity.Image;
-            //}
-            medicineData.ExpiryDate = medicineEntity.ExpiryDate;
-            medicineData.IsActive = medicineEntity.IsActive;
-            medicineData.IsDeleted = medicineEntity.IsDeleted;
-
+            context.Entry(medicineEntity).State = EntityState.Modified;
             context.SaveChanges();
 
-            // Verify weather user inserted(actually updated) or not.
-            var presentMedicine = context.Medicines.SingleOrDefault(c => c.Id == medicineEntity.Id);
-            if (presentMedicine != null)
-                return presentMedicine;
-            else
-                return null;
+            return medicineEntity;
+           
         }
 
         public Medicine GetMedicineById(int medicineId)

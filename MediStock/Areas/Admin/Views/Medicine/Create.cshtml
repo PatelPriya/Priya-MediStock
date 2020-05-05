@@ -4,8 +4,8 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 
 }
-<form asp-controller="Medicine" asp-action="Create" method="post" id="product-form">
-    
+<form asp-controller="Medicine" asp-action="Create" method="post" id="product-form" enctype="multipart/form-data">
+
     <div class="content-header clearfix">
 
         @await Html.PartialAsync("_CreateOrUpdate.cshtml", Model);
@@ -22,5 +22,17 @@
             </button>
         </div>
     </div>
+    @section scripts {
+        <script type="text/javascript">
+            // Add the following code if you want the name of the file appear on select
+            $(document).ready(function () {
+                $(".form-control form-control-file").on("change", function () {
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).next(".btn btn-primary btn-round btn-lg").html(fileName);
+                });
+            });
+        </script>
+    }
+
 </form>
 

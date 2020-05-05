@@ -6,9 +6,11 @@ using MediStockWeb.Areas.Admin.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using X.PagedList;
 
 namespace MediStockWeb.Areas.Admin.Controllers
@@ -16,47 +18,55 @@ namespace MediStockWeb.Areas.Admin.Controllers
     public class MedicineController : BaseController
     {
         #region Fields
-        private readonly IHostingEnvironment _env;
+        private readonly IWebHostEnvironment _env;
         private readonly IMedicineService _medicineService;
+        private readonly ICategoryService _categoryService;
+        private readonly MediStockContext _context;
+
         #endregion
 
         #region Ctor
 
         public MedicineController(IMedicineService medicineService,
-        IHostingEnvironment environment
+        IWebHostEnvironment environment, ICategoryService categoryService,
+                                     MediStockContext context
             )
         {
             _env = environment;
             _medicineService = medicineService;
+            _medicineService = medicineService;
+            _categoryService = categoryService;
+            _context = context;
         }
 
         #endregion
 
         #region Methods
 
-        public IActionResult List(int? page)
+        public IActionResult List()
         {
+
+            var medicine = _context.Medicines.ToList();
+            return View(medicine);
             //get all medicine data.
-            var medicineData = _medicineService.GetAllMedicines();
-            var medicineList = new List<MedicineModel>();
-            foreach (var item in medicineData)
-            {
-                var model = new MedicineModel();
-                model.MedicineId = item.Id;
-                model.Name = item.Name;
-                model.SKU = item.SKU;
-                model.PictureStr = item.PictureStr;
-                model.ProductGUID = item.ProductGUID;
-                model.Price = item.Price;
-                model.Manufacturer = item.Manufacturer;
-                model.ExpiryDate = item.ExpiryDate;
-                model.IsActive = item.IsActive;
-                model.IsDeleted = false;
-                medicineList.Add(model);
-            }
-            var pageNumber = page ?? 1;
-            var pageSize = 3;
-            return View(medicineList.ToPagedList(pageNumber, pageSize));
+            //var medicineData = _medicineService.GetAllMedicines().ToList();
+            //var medicineList = new List<MedicineModel>();
+            //foreach (var item in medicineData)
+            //{
+            //    var model = new MedicineModel();
+            //    model.MedicineId = item.Id;
+            //    model.Name = item.Name;
+            //    model.SKU = item.SKU;
+            //    //model.Picture = item.Picture;
+            //    model.ProductGUID = item.ProductGUID;
+            //    model.Price = item.Price;
+            //    model.Manufacturer = item.Manufacturer;
+            //    model.ExpiryDate = item.ExpiryDate;
+            //    model.IsActive = item.IsActive;
+            //    model.IsDeleted = false;
+            //    medicineList.Add(model);
+            //}
+            //return View(medicineList);
         }
 
         //public IActionResult List(MedicineModel searchModel)
@@ -67,65 +77,44 @@ namespace MediStockWeb.Areas.Admin.Controllers
         public IActionResult Create()
         {
             var model = new MedicineModel();
+            var categories = _categoryService.GetAllCategories()/*.ToList()*/;
+            SelectList list = new SelectList(categories, "Id", "Name");
+            ViewBag.categories = list;
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult Create(MedicineModel model /*,IFormFile model.PictureStr*/)
+        public IActionResult Create(MedicineModel model)
         {
-            //IFormFile model.Pi
-            //if (PictureStr != null && PictureStr.Length > 0)
-            //{
-            //    var imagePath = @"\Upload\Images\";
-            //    var uploadPath = _env.WebRootPath + imagePath;
-
-            //    //Create Directory
-            //    if (!Directory.Exists(uploadPath))
-            //    {
-            //        Directory.CreateDirectory(uploadPath);
-            //    }
-
-            //    //Create Uniq File name
-            //    var uniqFileName = Guid.NewGuid().ToString();
-            //    var filename = Path.GetFileName(uniqFileName + "." + PictureStr.FileName.Split(".")[1].ToLower());
-            //    string fullPath = uploadPath + filename;
-
-            //    imagePath = imagePath + @"\";
-            //    var filepath = @".." + Path.Combine(imagePath, filename);
-
-            //    using (var fileStream = new FileStream(fullPath, FileMode.Create))
-            //    {
-            //       // await PictureStr.CopyToAsync(fileStream);
-            //    }
-            //}
-
-            //string fileName = Path.GetFileNameWithoutExtension(model.);
-            //string extension = Path.GetExtension(model.PictureStr);
-            //fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-            //model.PictureStr = 
             Medicine obj = new Medicine();
-           
-                // Model Prepration
-                Medicine objMedicineModel = new Medicine
-                {
-                    Name = model.Name,
-                    SKU = model.SKU,
-                    ProductGUID = model.ProductGUID,
-                    Price = model.Price,
-                    Manufacturer = model.Manufacturer,
-                    ManufacturingDate = model.ManufacturingDate,
-                    Description = model.Description,
-                    ExpiryDate = model.ExpiryDate,
-                    IsActive = model.IsActive,
-                    IsDeleted = false,
-                    Stock = model.Stock,
-                    PictureStr = model.PictureStr,
-                    //CategoryMedicine = model.AllCategories
-                };
-            //objMedicineModel.Pictures = new Picture()
-            //{
-            //   // AbsolutePath = model.PictureStr
-            //};
+
+            //Image code
+            string uniqueFileName = null;
+            if (model.Picture != null)
+            {
+                string uploadsFolder = Path.Combine(_env.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Picture.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                model.Picture.CopyTo(new FileStream(filePath, FileMode.Create));
+            }
+
+            // Model Prepration
+            Medicine objMedicineModel = new Medicine
+            {
+                Name = model.Name,
+                SKU = model.SKU,
+                ProductGUID = model.ProductGUID,
+                Price = model.Price,
+                Manufacturer = model.Manufacturer,
+                ManufacturingDate = model.ManufacturingDate,
+                Description = model.Description,
+                ExpiryDate = model.ExpiryDate,
+                IsActive = model.IsActive,
+                IsDeleted = false,
+                Stock = model.Stock,
+                PictureStr = uniqueFileName,
+            };
+            
             var medicines = _medicineService.InsertMedicine(objMedicineModel);
             obj = medicines;
             if (obj == null)
@@ -138,6 +127,7 @@ namespace MediStockWeb.Areas.Admin.Controllers
             }
 
         }
+
 
         public IActionResult Edit(int id)
         {
@@ -194,12 +184,12 @@ namespace MediStockWeb.Areas.Admin.Controllers
             }
         }
 
-        public IActionResult Delete(int id)
+        public IActionResult Delete(Medicine medicineEntity)
         {
             //_adminMedicineService.DeleteMedicine(id);
             //return RedirectToAction("List");
 
-            var medicineData = _medicineService.DeleteMedicine(id);
+            var medicineData = _medicineService.DeleteMedicine(medicineEntity);
 
             if (medicineData == null)
             {
