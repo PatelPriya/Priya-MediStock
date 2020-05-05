@@ -26,5 +26,7 @@ namespace DAL.Domains
         [Required]
         public Password Password { get; set; }
         public ICollection<CustomerRole> CustomerRoles { get; set; }
+       // public ICollection<CustomerPayment> CustomerPayments { get; set; }
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using MediStockWeb.Controllers.Base;
 using MediStockWeb.Models;
 using MediStockWeb.Models.Auth;
+using MediStockWeb.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

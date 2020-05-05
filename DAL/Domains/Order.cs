@@ -1,5 +1,7 @@
 ﻿using DAL.Domains.Base;
+using DAL.Mappings;
 using System;
+using System.Collections.Generic;
 
 namespace DAL.Domains
 {
@@ -12,6 +14,9 @@ namespace DAL.Domains
         public DateTime CreatedOn { get; set; }
         public int ShoppingCartId { get; set; }
         public Cart ShoppingCart { get; set; }
+        public ICollection<Order> Orders { get; set; }
+       // public ICollection<PaymentOrder> PaymentOrder { get; set; }
+
 
     }
 }

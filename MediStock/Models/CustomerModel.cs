@@ -1,8 +1,12 @@
 ﻿using DAL.Domains;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MediStockWeb.Models
 {
-    public class CustomerModel 
+    public class CustomerModel
     {
         public CustomerModel()
         {
@@ -19,5 +23,6 @@ namespace MediStockWeb.Models
         public string PasswordStr { get; set; }
         public string confirmPassword { get; set; }
         public Password Password { get; set; }
+        public string CustomerId { get; set; }
     }
 }
