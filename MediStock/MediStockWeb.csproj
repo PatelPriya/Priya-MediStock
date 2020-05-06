@@ -346,13 +346,16 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
     <PackageReference Include="SweetAlert" Version="1.0.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="8.0.7" />
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="paytm">
+      <HintPath>..\..\MCA 6\Paytm_Web_Sample_Kit_dotNet-master\.net_4.5\paytm.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Mvc">
       <HintPath>D:\Xcellence-IT\Code\XIT Projects\Open\MediStock\Project\MediStock 1.0.0\MediStock\bin\System.Web.Mvc.dll</HintPath>
     </Reference>
