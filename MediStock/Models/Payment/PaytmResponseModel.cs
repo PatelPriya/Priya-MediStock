@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MediStockWeb.Areas.Admin.Models
+namespace MediStockWeb.Models.Payment
 {
     public class PaytmResponseModel
     {
@@ -20,5 +20,6 @@ namespace MediStockWeb.Areas.Admin.Models
         public string BankName { get; set; }
         public string PaymentMode { get; set; }
         public string Checksumhash { get; set; }
+
     }
 }

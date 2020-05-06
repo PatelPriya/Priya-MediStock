@@ -1,9 +1,10 @@
 ﻿using DAL.Domains;
 using MediStockWeb.Areas.Admin.Models;
 using MediStockWeb.Models;
-using MediStockWeb.Models;
 using MediStockWeb.Models.Payment;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using paytm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,8 @@ namespace MediStockWeb.Controllers
             String merchantKey = Key.merchantKey;
 
             Dictionary<string, string> parameters = new Dictionary<string, string>();
+
+            
             parameters.Add("MID", Key.merchantId);
             parameters.Add("CHANNEL_ID", "WEB");
             parameters.Add("INDUSTRY_TYPE_ID", "Retail");
@@ -34,9 +37,10 @@ namespace MediStockWeb.Controllers
             //parameters.Add("CUST_ID", customerModel.CustomerId);
             parameters.Add("CUST_ID", "1");
             //parameters.Add("ORDER_ID", orderModel.OrderId);
-             parameters.Add("ORDER_ID", "ORD1997"); //OrderId must be unique everytime.
+             parameters.Add("ORDER_ID", "ORD879631"); //OrderId must be unique everytime.
             parameters.Add("TXN_AMOUNT", requestData.Amount);
-            parameters.Add("CALLBACK_URL", "http://localhost:44375/Payment/paytmResponse"); //This parameter is not mandatory. Use this to pass the callback url dynamically.
+            parameters.Add("CALLBACK_URL", "https://localhost:44388/Payment/PaytmResponse");
+           // parameters.Add("CALLBACK_URL", "url");//This parameter is not mandatory. Use this to pass the callback url dynamically.
 
             string checksum = paytm.CheckSum.generateCheckSum(merchantKey, parameters);
 
@@ -68,9 +72,21 @@ namespace MediStockWeb.Controllers
             outputHTML += "</html>";
 
             ViewBag.htmlData = outputHTML;
+            
 
             return View("PaymentPage");
         }
+        [HttpPost]
+        public ActionResult PaytmResponse(PaytmResponseModel data)
+        {
+            return View(data);
+        }
+        
+        public ActionResult Success()
+        {
+            return View("Success");
+        }
+
 
     }
 }

@@ -25,10 +25,5 @@ namespace MediStockWeb.Areas.Admin.Controllers
         {            
             return View(model);
         }
-        [HttpPost]
-        public ActionResult paytmResponse(PaytmResponseModel data)
-        {
-            return View("paytmResponse", data);
-        }
-    }
+            }
 }
