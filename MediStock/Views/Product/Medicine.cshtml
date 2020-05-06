@@ -1,4 +1,5 @@
-﻿
+﻿@model MediStockWeb.Areas.Admin.Models.MedicineModel
+
 @{
     ViewData["Title"] = "Medicine";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -18,21 +19,42 @@
                 </select>
             </div>
             <div class="col-sm-2 mb-sm-20">
-                <select class="form-control">
-                    <option selected="selected">Woman</option>
-                    <option>Man</option>
-                </select>
+                @*<select class="form-control">
+                        <option selected="selected">Woman</option>
+                        <option>Man</option>
+                    </select>*@
+
+               
+                    @Html.DropDownListFor(model => model.categoryName, ViewBag.CategoryList as SelectList, new
+                         {
+                             value = "@Model.CategoryName",
+                                  @class = "form-control select2-hidden-accessible",
+                             @required = "",
+                             @tabindex = "-1"
+                         })
+              
+
             </div>
+
             <div class="col-sm-3 mb-sm-20">
-                <select class="form-control">
-                    <option selected="selected">All</option>
-                    <option>Coats</option>
-                    <option>Jackets</option>
-                    <option>Dresses</option>
-                    <option>Jumpsuits</option>
-                    <option>Tops</option>
-                    <option>Trousers</option>
-                </select>
+                @*<select class="form-control">
+                        <option selected="selected">All</option>
+                        <option>Coats</option>
+                        <option>Jackets</option>
+                        <option>Dresses</option>
+                        <option>Jumpsuits</option>
+                        <option>Tops</option>
+                        <option>Trousers</option>
+                    </select>*@
+
+                @Html.DropDownListFor(model => model.Name, ViewBag.MList as SelectList, "selected", new
+     {
+         value = "@Model.Name",
+         @class = "form-control select2-hidden-accessible",
+         @required = "",
+         @tabindex = "-1"
+     })
+
             </div>
             <div class="col-sm-3">
                 <button class="btn btn-block btn-round btn-g" type="submit">Apply</button>
@@ -124,3 +146,21 @@
         </div>
     </div>
 </section>
+<script>
+        $(document).ready(function () {
+            $("#categoryName").change(function () {
+                var catId = $(this).val();
+                debugger
+                $.ajax({
+                    type: "post",
+                    url: "/Product/GetMedicineList" + catId,
+                    contentType: "html",
+                    success: function (response) {
+                        debugger
+                        $("#Name").empty();
+                        $("#Name").append(response);
+                    }
+                })
+            })
+        })
+</script>

@@ -27,9 +27,9 @@ namespace MediStockWeb.Areas.Admin.Models
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public Stock Stock { get; set; }
-       
-        //public string PictureStr { get; set; }
-        
+
+        public string CategoryName { get; set; }
+
         public IFormFile Picture { get; set; }
         
         public List<CategoryModel> AllCategories { get; set; }

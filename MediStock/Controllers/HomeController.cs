@@ -4,6 +4,10 @@ using DAL.Domains;
 using MediStockWeb.Controllers.Base;
 using Microsoft.AspNetCore.Mvc;
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace MediStockWeb.Controllers
 {
     public class HomeController : BaseController
@@ -25,9 +29,12 @@ namespace MediStockWeb.Controllers
 
         // Sample add comment to show the github pull
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(string categoryName)
         {
-            return View();
+
+            var img = new List<Medicine>();
+            img = _context.Medicines.Where(x => x.CategoryName == categoryName).ToList();
+            return View(img);
         }
 
         [HttpPost]

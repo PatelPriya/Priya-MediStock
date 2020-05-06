@@ -113,8 +113,9 @@ namespace MediStockWeb.Areas.Admin.Controllers
                 IsDeleted = false,
                 Stock = model.Stock,
                 PictureStr = uniqueFileName,
+                CategoryName=model.CategoryName,
             };
-            
+
             var medicines = _medicineService.InsertMedicine(objMedicineModel);
             obj = medicines;
             if (obj == null)
@@ -132,6 +133,10 @@ namespace MediStockWeb.Areas.Admin.Controllers
         public IActionResult Edit(int id)
         {
             var medicineModel = _medicineService.GetMedicineById(id);
+
+            var categories = _categoryService.GetAllCategories()/*.ToList()*/;
+            SelectList list = new SelectList(categories, "Id", "Name");
+            ViewBag.categories = list;
 
             MedicineModel model = new MedicineModel
             {
@@ -154,6 +159,15 @@ namespace MediStockWeb.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Edit(MedicineModel model)
         {
+            string uniqueFileName = null;
+            if (model.Picture != null)
+            {
+                string uploadsFolder = Path.Combine(_env.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Picture.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                model.Picture.CopyTo(new FileStream(filePath, FileMode.Create));
+            }
+
             Medicine medicineModel = new Medicine
             {
                 Id = model.MedicineId,
@@ -164,7 +178,7 @@ namespace MediStockWeb.Areas.Admin.Controllers
                 Manufacturer = model.Manufacturer,
                 ManufacturingDate = model.ManufacturingDate,
                 Description = model.Description,
-                //Image = model.Image,
+                PictureStr = uniqueFileName,
                 ExpiryDate = model.ExpiryDate,
                 IsActive = model.IsActive,
                 IsDeleted = false
@@ -232,6 +246,15 @@ namespace MediStockWeb.Areas.Admin.Controllers
                 return View("List", medicineNameList);
             }
         }
+
+        public ActionResult GetMedicineList(int Id)
+        {
+            List<Medicine> selectList = _context.Medicines.Where(x=>x.Id == Id).ToList();
+            ViewBag.MList = new SelectList(selectList,"Id","Name");
+
+            return PartialView("DisplayMedicine");
+        }
+
         #endregion
     }
 }

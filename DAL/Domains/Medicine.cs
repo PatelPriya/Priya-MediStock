@@ -21,6 +21,8 @@ namespace DAL.Domains
 
         public string PictureStr { get; set; }
 
+        public string CategoryName { get; set; }
+
         public ICollection<CategoryMedicine> _categoryMedicine;
 
         public virtual ICollection<CategoryMedicine> CategoryMedicine
