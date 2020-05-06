@@ -1,7 +1,7 @@
-﻿@model MediStockWeb.Areas.Admin.Models.PaytmResponseModel
+﻿@model MediStockWeb.Models.Payment.PaytmResponseModel
 @{
     ViewData["Title"] = "paytmResponse";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>paytmResponse</h2>
@@ -14,20 +14,15 @@
         </div>
         <div class="content-header clearfix">
             <div class="pull-right">
-                <button type="submit" name="save" class="btn btn-success">
+                <button type="submit" name="save" class="btn btn-success"  onclick="window.location.href='@Url.Action("Success", "Payment")'">
                     <i class="fa fa-floppy-o"></i>
                     Save
-                </button>
-
-                <button type="submit" name="save-continue" class="btn btn-success">
-                    <i class="fa fa-floppy-o"></i>
-                    Save Continue
                 </button>
             </div>
         </div>
 
 
-        <form id="exampleValidation" novalidate="novalidate" enctype="multipart/form-data" method="post" action="Payment/paytmResponse">
+        <form id="exampleValidation" novalidate="novalidate" enctype="multipart/form-data" >@*method="post" action="Payment/paytmResponse"*@
 
             <div class="card-body">
                 <div class="form-group form-show-validation row">

@@ -1,7 +1,6 @@
 ﻿using BAL.Services;
 using DAL.Domains;
 using MediStockWeb.Models;
-using MediStockWeb.Models;
 using MediStockWeb.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using System;
