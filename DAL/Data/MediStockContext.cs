@@ -28,6 +28,7 @@ namespace DAL.Data
         public DbSet<Medicine> Medicines { get; set; }
         public DbSet<Stock> Stock { get; set; }
         public DbSet<GeneralSetting> GeneralSettings { get; set; }
+        public DbSet<CategoryMedicine> CategoryMedicine { get; set; }
 
         #endregion
 

@@ -1,6 +1,8 @@
 ﻿using DAL.Domains;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Web;
 
 namespace MediStockWeb.Areas.Admin.Models
@@ -25,10 +27,12 @@ namespace MediStockWeb.Areas.Admin.Models
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public Stock Stock { get; set; }
-        public string PictureStr { get; set; }
-        //public HttpPostedFileBase imageFile { get; set; }
-
-        //public List<Picture> Pictures { get; set; }
+       
+        //public string PictureStr { get; set; }
+        
+        public IFormFile Picture { get; set; }
+        
         public List<CategoryModel> AllCategories { get; set; }
+        public string categoryName { get; set; }
     }
 }
