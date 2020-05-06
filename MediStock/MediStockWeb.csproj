@@ -354,7 +354,7 @@
 
   <ItemGroup>
     <Reference Include="paytm">
-      <HintPath>..\..\MCA 6\Paytm_Web_Sample_Kit_dotNet-master\.net_4.5\paytm.dll</HintPath>
+      <HintPath>paytm.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Mvc">
       <HintPath>D:\Xcellence-IT\Code\XIT Projects\Open\MediStock\Project\MediStock 1.0.0\MediStock\bin\System.Web.Mvc.dll</HintPath>
