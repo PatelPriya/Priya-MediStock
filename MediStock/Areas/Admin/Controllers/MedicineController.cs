@@ -113,6 +113,7 @@ namespace MediStockWeb.Areas.Admin.Controllers
                 IsDeleted = false,
                 Stock = model.Stock,
                 PictureStr = uniqueFileName,
+                CategoryName=model.CategoryName,
             };
 
             var medicines = _medicineService.InsertMedicine(objMedicineModel);
@@ -245,6 +246,15 @@ namespace MediStockWeb.Areas.Admin.Controllers
                 return View("List", medicineNameList);
             }
         }
+
+        public ActionResult GetMedicineList(int Id)
+        {
+            List<Medicine> selectList = _context.Medicines.Where(x=>x.Id == Id).ToList();
+            ViewBag.MList = new SelectList(selectList,"Id","Name");
+
+            return PartialView("DisplayMedicine");
+        }
+
         #endregion
     }
 }

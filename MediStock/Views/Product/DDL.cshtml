@@ -1,0 +1,47 @@
+﻿@model MediStockWeb.Areas.Admin.Models.MedicineModel
+
+<div class="col-sm-2 mb-sm-20">
+    @if (ViewBag.categories != null)
+    {
+        @Html.DropDownListFor(model => model.categoryName, ViewBag.categories as SelectList, new
+             {
+                 value = "@Model.CategoryName",
+                      @class = "form-control select2-hidden-accessible",
+                 @required = "",
+                 @tabindex = "-1"
+             })
+    }
+
+
+</div>
+<div class="col-sm-3 mb-sm-20">
+    @Html.DropDownListFor(model => model.Name, new SelectList(""), "selected", new
+      {
+          value = "@Model.Name",
+          @class = "form-control select2-hidden-accessible",
+          @required = "",
+          @tabindex = "-1"
+      })
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#categoryName").change(function () {
+                var catId = $(this).val();
+                debugger
+                $.ajax({
+                    type: "post",
+                    url: "/Medicine/GetMedicineList" + catId,
+                    contentType: "html",
+                    success: function (response) {
+                        debugger
+                        $("#Name").empty();
+                        $("#Name").append(response);
+                    }
+                })
+            })
+        })
+    </script>
+
+    <div class="col-sm-3">
+        <button class="btn btn-block btn-round btn-g" type="submit">Apply</button>
+    </div>

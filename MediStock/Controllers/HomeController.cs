@@ -5,6 +5,8 @@ using MediStockWeb.Areas.Admin.Models;
 using MediStockWeb.Controllers.Base;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MediStockWeb.Controllers
 {
@@ -25,9 +27,12 @@ namespace MediStockWeb.Controllers
         }
         #endregion
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(string categoryName)
         {
-            return View();
+
+            var img = new List<Medicine>();
+            img = _context.Medicines.Where(x => x.CategoryName == categoryName).ToList();
+            return View(img);
         }
 
         [HttpPost]

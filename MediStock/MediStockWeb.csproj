@@ -12,6 +12,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\ViewComponents\MedicineImageViewComponent.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Shared\Components\MedicineImage\Default.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BAL\BAL.csproj" />
   </ItemGroup>
 
@@ -19,6 +27,7 @@
     <Folder Include="Documentation\apidoc\" />
     <Folder Include="Documentation\images\" />
     <Folder Include="Documentation\src\" />
+    <Folder Include="Views\Shared\Components\MedicineImage\" />
     <Folder Include="wwwroot\Content\Common\cropper\" />
     <Folder Include="wwwroot\Content\Common\air-datepicker\" />
     <Folder Include="wwwroot\Content\Common\vue-countdown\" />
