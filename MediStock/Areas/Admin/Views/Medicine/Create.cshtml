@@ -31,6 +31,70 @@
                     $(this).next(".btn btn-primary btn-round btn-lg").html(fileName);
                 });
             });
+            var btnsave = document.getElementById("btn");
+            btnsave.addEventListener("click", function () {
+                var Name = document.getElementById("Name").value;
+                var SKU = document.getElementById("SKU").value;
+                var ProductGUID = document.getElementById("ProductGUID").value;
+                var Price = document.getElementById("Prise").value;
+                var Manufacturer = document.getElementById("Manufacturer").value;
+                var ManufacturingDate = document.getElementById("ManufacturingDate").value;
+                var Description = document.getElementById("Description").value;
+                var IsActive = document.getElementById("IsActive").value;
+                //var IsDeleted = document.getElementById("IsDeleted").value;
+                //var Stock = document.getElementById("Stock").value;
+                //var PictureStr = document.getElementById("PictureStr").value;
+                //var CategoryName = document.getElementById("CategoryName").value;
+
+                if (Name == "") {
+                    swal({
+                        title: "Fields Empty !!",
+                        text: "Please check the missing Field!!",
+                        icon: "warning",
+                        button: "ok",
+                    });
+                }
+                else {
+                    swal({
+                        title: "Successfully submitted",
+                        icon: "success",
+                        button: "yess!!",
+                    });
+                }
+            })
+
+            var btn1 = document.getElementById("btnsc");
+            btnsave.addEventListener("click", function () {
+                var Name = document.getElementById("Name").value;
+                var SKU = document.getElementById("SKU").value;
+                var ProductGUID = document.getElementById("ProductGUID").value;
+                var Price = document.getElementById("Prise").value;
+                var Manufacturer = document.getElementById("Manufacturer").value;
+                var ManufacturingDate = document.getElementById("ManufacturingDate").value;
+                var Description = document.getElementById("Description").value;
+                var IsActive = document.getElementById("IsActive").value;
+                //var isdeleted = document.getelementbyid("isdeleted").value;
+                //var stock = document.getelementbyid("stock").value;
+                //var picturestr = document.getelementbyid("picturestr").value;
+                //var categoryname = document.getelementbyid("categoryname").value;
+
+                if (Name == "") {
+                    swal({
+                        title: "Fields Empty !!",
+                        text: "Please check the missing Field!!",
+                        icon: "warning",
+                        button: "ok",
+                    });
+                }
+                else {
+                    swal({
+                        title: "Successfully submitted",
+                        icon: "success",
+                        button: "yess!!",
+                    });
+                }
+            })
+
         </script>
     }
 
