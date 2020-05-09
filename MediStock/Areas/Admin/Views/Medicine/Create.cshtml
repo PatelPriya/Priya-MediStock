@@ -11,12 +11,12 @@
         @await Html.PartialAsync("_CreateOrUpdate.cshtml", Model);
 
         <div class="pull-right">
-            <button type="submit" name="save" class="btn btn-success">
+            <button type="submit" name="save" class="btn btn-success" id="btn">
                 <i class="fa fa-floppy-o"></i>
                 Save
             </button>
 
-            <button type="submit" name="save-continue" class="btn btn-success">
+            <button type="submit" name="save-continue" class="btn btn-success" id="btnsc">
                 <i class="fa fa-floppy-o"></i>
                 Save Continue
             </button>
@@ -43,11 +43,10 @@
                 var ManufacturingDate = document.getElementById("ManufacturingDate").value;
                 var Description = document.getElementById("Description").value;
                 var IsActive = document.getElementById("IsActive").value;
-                //var IsDeleted = document.getElementById("IsDeleted").value;
-                //var Stock = document.getElementById("Stock").value;
-                //var PictureStr = document.getElementById("PictureStr").value;
-                //var CategoryName = document.getElementById("CategoryName").value;
-
+                var Isdeleted = document.getelementbyid("IsDeleted").value;
+                var Stock = document.getelementbyid("Stock").value;
+                var PictureStr = document.getelementbyid("PictureStr").value;
+                var CategoryName = document.getelementbyid("CategoryName").value;
                 if (Name == "") {
                     swal({
                         title: "Fields Empty !!",
@@ -70,15 +69,15 @@
                 var Name = document.getElementById("Name").value;
                 var SKU = document.getElementById("SKU").value;
                 var ProductGUID = document.getElementById("ProductGUID").value;
-                var Price = document.getElementById("Prise").value;
+                var Price = document.getElementById("Price").value;
                 var Manufacturer = document.getElementById("Manufacturer").value;
                 var ManufacturingDate = document.getElementById("ManufacturingDate").value;
                 var Description = document.getElementById("Description").value;
                 var IsActive = document.getElementById("IsActive").value;
-                //var isdeleted = document.getelementbyid("isdeleted").value;
-                //var stock = document.getelementbyid("stock").value;
-                //var picturestr = document.getelementbyid("picturestr").value;
-                //var categoryname = document.getelementbyid("categoryname").value;
+                var Isdeleted = document.getelementbyid("IsDeleted").value;
+                var Stock = document.getelementbyid("Stock").value;
+                var PictureStr = document.getelementbyid("PictureStr").value;
+                var CategoryName = document.getelementbyid("CategoryName").value;
 
                 if (Name == "") {
                     swal({
