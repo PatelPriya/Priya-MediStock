@@ -1,9 +1,10 @@
 ﻿using DAL.Data;
 using DAL.Domains;
-using DAL.Mappings;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+
 
 namespace BAL.Services
 {
@@ -13,6 +14,8 @@ namespace BAL.Services
 
         //MediStockContext db = new MediStockContext();
         private readonly MediStockContext context;
+        //private readonly IRepository<Medicine> _medicineRepository;
+
 
         #endregion
 
@@ -80,7 +83,19 @@ namespace BAL.Services
 
         public Medicine UpdateMedicine(Medicine medicineEntity)
         {
-            context.Entry(medicineEntity).State = EntityState.Modified;
+
+            var entity = context.Medicines.Attach(medicineEntity);
+            entity.State = EntityState.Modified;
+
+            //context.Medicines.Update(medicineEntity);
+
+            //context.Entry(medicineEntity).State = EntityState.Modified;
+
+            //if (medicineEntity == null)
+            //    throw new ArgumentNullException(nameof(medicineEntity));
+
+            //contex.Update(medicineEntity);
+
             context.SaveChanges();
 
             return medicineEntity;
@@ -89,23 +104,7 @@ namespace BAL.Services
 
         public Medicine GetMedicineById(int medicineId)
         {
-            var query = from c in context.Medicines where c.Id == medicineId select c;
-            var medicine = query.FirstOrDefault();
-            var model = new Medicine()
-            {
-                Id = medicine.Id,
-                Name = medicine.Name,
-                SKU = medicine.SKU,
-                ProductGUID = medicine.ProductGUID,
-                Price = medicine.Price,
-                Manufacturer = medicine.Manufacturer,
-                ManufacturingDate = medicine.ManufacturingDate,
-                Description = medicine.Description,
-                ExpiryDate = medicine.ExpiryDate,
-                IsActive = medicine.IsActive,
-                IsDeleted = false
-            };
-            return model;
+            return context.Medicines.Find(medicineId);
         }
 
         public IEnumerable<Medicine> GetMedicineByName(string medicineName)
@@ -113,6 +112,8 @@ namespace BAL.Services
             List<Medicine> medicines = context.Medicines.Where(t => t.Name.Contains(medicineName)).ToList();
             return medicines;
         }
+
+
         #endregion
     }
 }

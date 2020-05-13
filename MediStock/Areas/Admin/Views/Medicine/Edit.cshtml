@@ -1,41 +1,39 @@
-﻿@model  MediStockWeb.Areas.Admin.Models.MedicineModel
+﻿@model MediStockWeb.Areas.Admin.Models.MedicineModel
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-    <form asp-controller="Medicine" asp-action="Edit" method="post" id="Form" enctype="multipart/form-data">
+<form asp-controller="Medicine" asp-action="Edit" method="post" id="Form" enctype="multipart/form-data">
+    <div class="content-header clearfix">
+
         <h1 class="pull-left">
             Edit- @Html.Raw(Model.Name)
         </h1>
-        <div>
-            @await Html.PartialAsync("_CreateOrUpdate")
+
+        @await Html.PartialAsync("_CreateOrUpdate")
+
+        <div class="pull-right">
+            <button type="submit" name="save" class="btn btn-success">
+                <i class="fa fa-floppy-o"></i>
+                Save
+            </button>
+            <button type="submit" name="save-continue" class="btn btn-success">
+                <i class="fa fa-floppy-o"></i>
+                Save Continue
+            </button>
         </div>
-        <br />
-        <div class="content-header clearfix">
+    </div>
 
-
-            <div class="pull-right">
-                <button type="submit" name="save" class="btn btn-success">
-                    <i class="fa fa-floppy-o"></i>
-                    Save
-                </button>
-                <button type="submit" name="save-continue" class="btn btn-success">
-                    <i class="fa fa-floppy-o"></i>
-                    Save Continue
-                </button>
-            </div>
-        </div>
-
-        @section scripts {
-            <script type="text/javascript">
-                // Add the following code if you want the name of the file appear on select
-                $(document).ready(function () {
-                    $(".form-control form-control-file").on("change", function () {
-                        var fileName = $(this).val().split("\\").pop();
-                        $(this).next(".btn btn-primary btn-round btn-lg").html(fileName);
-                    });
+    @section scripts {
+        <script type="text/javascript">
+            // Add the following code if you want the name of the file appear on select
+            $(document).ready(function () {
+                $(".form-control form-control-file").on("change", function () {
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).next(".btn btn-primary btn-round btn-lg").html(fileName);
                 });
-            </script>
-        }
+            });
+        </script>
+    }
 
-    </form>
+</form>

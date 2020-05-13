@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -113,7 +114,7 @@ namespace MediStockWeb.Areas.Admin.Controllers
                 IsDeleted = false,
                 Stock = model.Stock,
                 PictureStr = uniqueFileName,
-                CategoryName=model.CategoryName,
+                CategoryName = model.CategoryName,
             };
 
             var medicines = _medicineService.InsertMedicine(objMedicineModel);
@@ -129,7 +130,7 @@ namespace MediStockWeb.Areas.Admin.Controllers
 
         }
 
-
+        [HttpGet]
         public IActionResult Edit(int id)
         {
             var medicineModel = _medicineService.GetMedicineById(id);
@@ -150,7 +151,8 @@ namespace MediStockWeb.Areas.Admin.Controllers
                 Description = medicineModel.Description,
                 ExpiryDate = medicineModel.ExpiryDate,
                 IsActive = medicineModel.IsActive,
-                IsDeleted = false
+                IsDeleted = false,
+                CategoryName = medicineModel.CategoryName,
             };
 
             return View(model);
@@ -159,6 +161,9 @@ namespace MediStockWeb.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Edit(MedicineModel model)
         {
+            if (model.MedicineId == 0)
+                return RedirectToAction("Edit");
+
             string uniqueFileName = null;
             if (model.Picture != null)
             {
@@ -168,22 +173,23 @@ namespace MediStockWeb.Areas.Admin.Controllers
                 model.Picture.CopyTo(new FileStream(filePath, FileMode.Create));
             }
 
-            Medicine medicineModel = new Medicine
-            {
-                Id = model.MedicineId,
-                Name = model.Name,
-                SKU = model.SKU,
-                ProductGUID = model.ProductGUID,
-                Price = model.Price,
-                Manufacturer = model.Manufacturer,
-                ManufacturingDate = model.ManufacturingDate,
-                Description = model.Description,
-                PictureStr = uniqueFileName,
-                ExpiryDate = model.ExpiryDate,
-                IsActive = model.IsActive,
-                IsDeleted = false
-            };
-            var medicineModels = _medicineService.UpdateMedicine(medicineModel);
+            //get record from db
+            var medicine = _medicineService.GetMedicineById(model.MedicineId);
+
+            medicine.Name = model.Name;
+            medicine.SKU = model.SKU;
+            medicine.ProductGUID = model.ProductGUID;
+            medicine.Price = model.Price;
+            medicine.Manufacturer = model.Manufacturer;
+            medicine.ManufacturingDate = model.ManufacturingDate;
+            medicine.Description = model.Description;
+            medicine.PictureStr = uniqueFileName;
+            medicine.ExpiryDate = model.ExpiryDate;
+            medicine.IsActive = model.IsActive;
+            medicine.IsDeleted = false;
+            medicine.CategoryName = model.CategoryName;
+
+            var medicineModels = _medicineService.UpdateMedicine(medicine);
             if (medicineModels == null)
             {
                 // Failed
@@ -249,8 +255,8 @@ namespace MediStockWeb.Areas.Admin.Controllers
 
         public ActionResult GetMedicineList(int Id)
         {
-            List<Medicine> selectList = _context.Medicines.Where(x=>x.Id == Id).ToList();
-            ViewBag.MList = new SelectList(selectList,"Id","Name");
+            List<Medicine> selectList = _context.Medicines.Where(x => x.Id == Id).ToList();
+            ViewBag.MList = new SelectList(selectList, "Id", "Name");
 
             return PartialView("DisplayMedicine");
         }
